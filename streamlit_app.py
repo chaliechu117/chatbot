@@ -1,5 +1,6 @@
 import streamlit as st
 import google.generativeai as genai
+import re
 
 # Streamlit UI 초기화
 st.title("💬 개인정보 탐지 Chatbot")
@@ -163,15 +164,16 @@ else:
 
             # 집계 결과를 표 형식으로 정리
             st.write("**집계 결과**")
+            numbers = re.findall(r'\d+', formatted_result["결과"])
             summary_data = {
                 "구분": ["인적사항", "신체적 정보", "사회적 정보", "재산적 정보", "정신적 정보", "기타 정보"],
                 "건수": [
-                    formatted_result["결과"].split(', ')[0].split()[-1],
-                    formatted_result["결과"].split(', ')[1].split()[-1],
-                    formatted_result["결과"].split(', ')[2].split()[-1],
-                    formatted_result["결과"].split(', ')[3].split()[-1],
-                    formatted_result["결과"].split(', ')[4].split()[-1],
-                    formatted_result["결과"].split(', ')[5].split()[-1],
+                    numbers[0]+'건',
+                    numbers[1]+'건',
+                    numbers[2]+'건',
+                    numbers[3]+'건',
+                    numbers[4]+'건',
+                    numbers[5]+'건',
                 ]
             }
             st.table(summary_data)
