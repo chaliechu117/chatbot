@@ -4,7 +4,7 @@ import google.generativeai as genai
 # Streamlit UI 초기화
 st.title("💬 개인정보 탐지 Chatbot")
 st.write(
-    "Gemini 모델을 사용하여 텍스트 내 개인정보를 탐지하는 챗봇입니다."
+    "Gemini 모델을 사용하여 텍스트 내 개인정보를 탐지하는 챗봇입니다."\
 )
 st.write(
     "Gemini API 키를 입력한 후 텍스트를 입력하세요."
