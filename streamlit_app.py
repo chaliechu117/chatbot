@@ -171,7 +171,6 @@ else:
             # 1단계 결과를 숨겨진 섹션으로 표시
 
             with st.expander("상세 분석 결과 보기"):
-                st.text_area("1단계 결과", value=response_first.text, height=200, disabled=True)
-                st.text_area("2단계 결과", value=response_second.text, height=300, disabled=True)
+                st.text_area("상세 분석 결과", value=response_second.text, height=200, disabled=True)
 
 
