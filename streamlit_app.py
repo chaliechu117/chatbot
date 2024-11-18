@@ -134,7 +134,7 @@ else:
             response_second = chat_session_second.send_message(input_second)
 
             # 결과 출력
-            st.subheader("2단계 최종 결과")
+            st.subheader("분석 결과")
 
             # 결과 데이터 파싱
             result_lines = response_second.text.strip().split('\n')
