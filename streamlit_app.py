@@ -176,7 +176,7 @@ else:
 
             # 상세 분석 결과를 숨길 수 있는 섹션으로 표시
             with st.expander("상세 분석 결과 보기"):
-                st.markdown("상세 분석 결과", value=response_second.text, height=200, disabled=True)
+                st.markdown(response_second.text)
 
 
 
