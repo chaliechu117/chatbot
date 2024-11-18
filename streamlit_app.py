@@ -115,16 +115,22 @@ else:
             output_first = response_first.text.split('\n')
 
             # Second Stage
-            input_second = f"""
+            input_second = f"""    
                 ## 답변
                 입력 >> {output_first[0]}
                 태그 >> {output_first[1]}
                 결과 >> {output_first[2]}
 
+                ## 차근차근 분석해보자
+                작성방법에 맞추어 작성했는지 분석하시오.
+                분석한 결과를 참고하여 각 태그가 올바르게 분류되었는지 확인해보시오.
+                분석한 결과를 참고하여 결과에서 집계한 건수가 정확한지 확인해보시오.
+                개인정보 탐지 수행 방법에 알맞게 답변을 수정하시오.
+
                 ## 최종 답변
                 입력 >> {output_first[0]}
-                태그 >>
-                결과 >> 
+                태그 >> 
+                결과 >> 인적사항 _건, 신체적정보 _건, 사회적정보 _건, 재산적정보 _건, 정신적 정보 _건, 기타 정보 _건
             """
             response_second = chat_session_second.send_message(input_second)
 
