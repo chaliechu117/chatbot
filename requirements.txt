@@ -1,3 +1,4 @@
 streamlit
 google-generative-ai==0.8.3
 pandas
+re
