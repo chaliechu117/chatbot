@@ -102,17 +102,19 @@ else:
     chat_session_first = model_first.start_chat(history=[])
     chat_session_second = model_second.start_chat(history=[])
 
-    # 사용자 입력 받기
-    user_input = st.text_area("텍스트 입력", placeholder="분석할 텍스트를 입력하세요...")
-    if user_input:
-        if st.button("분석 시작"):
-            # First Stage
-            input_first = f"""
-                ## 탐지
-                입력 >> {user_input}
-                태그 >>
-                결과 >>
-            """
+    # 폼 생성
+    with st.form(key="text_input_form", clear_on_submit=False):
+        user_input = st.text_area("텍스트 입력", placeholder="분석할 텍스트를 입력하세요...", height=150)
+        submit_button = st.form_submit_button("분석 시작")  # Enter 키로도 제출 가능
+
+    if submit_button and user_input:
+        # First Stage
+        input_first = f"""
+            ## 탐지
+            입력 >> {user_input}
+            태그 >>
+            결과 >>
+        """
             response_first = chat_session_first.send_message(input_first)
             output_first = response_first.text.strip().split('\n')
 
