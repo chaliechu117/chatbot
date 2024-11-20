@@ -2,6 +2,11 @@ import streamlit as st
 import google.generativeai as genai
 import re
 
+def clean_text(input_text):
+    # Use regular expressions to remove tags
+    cleaned_text = re.sub(r'\[.*?\](.*?)\[/.*?\]', r'\1', input_text)
+    return cleaned_text
+    
 # Streamlit UI 초기화
 st.title("💬 개인정보 탐지 Chatbot")
 st.write(
@@ -122,34 +127,27 @@ else:
             """
             response_first = chat_session_first.send_message(input_first)
             output_first = response_first.text.strip().split('\n')
-
+            clean_input = clean_text(output_first[0])
             # Second Stage
             input_second = f"""
                 ## 답변
-                입력 >> {output_first[0]}
+                입력 >> {clean_input}
                 태그 >> {output_first[1]}
                 결과 >> {output_first[2]}
 
                 ## 차근차근 분석해보자
-                입력된 문장의 개별 정보를 모두 표시하고 연결되는 정보를 n-gram으로 결합해가며 계층적으로 분석한 뒤 쌍을 만들어 제시하시오.
-                제시된 쌍에서 유추할 수 있는 개인정보 요소를 분석하고 제시하시오.
+                입력된 문장의 개별 정보를 모두 표시하고 연결되는 정보를 결합(n-gram)해가며 계층적으로 분석한 뒤 쌍을 만들어 제시하시오.
+                제시된 쌍에서 유추할 수 있는 정보 분석하고 제시하시오.
                 특정된 인물을 표시하고 제시된 쌍과 함께 해당 인물과 직접적으로 혹은 간접적으로 연관된 요소는 무엇이 있는지 제시하시오.
                 모든 제시된 요소를 나열하고 각각 개인정보 요소를 연결하여 태그를 추가하시오.
                 제시된 요소를 모두 고려하여 개인정보 탐지 수행 방법에 알맞게 답변을 수정하시오.
-            
-                ## 수정된 답변
-                입력 >> {output_first[0]}
-                태그 >> 
-                결과 >> 인적사항 _건, 신체적정보 _건, 사회적정보 _건, 재산적정보 _건, 정신적 정보 _건, 기타 정보 _건
-            
-                ## 차근차근 분석해보자
-                수정된 답변이 개인정보 탐지 수행 방법에 맞추어 작성했는지 분석하시오.
+                개인정보 탐지 수행 방법에 맞추어 작성했는지 분석하시오.
                 분석한 결과를 참고하여 각 태그가 개인정보 요소에 알맞게 올바르게 분류되었는지 확인해보시오.
                 분석한 결과를 참고하여 결과에서 집계한 건수가 정확한지 확인해보시오.
-                분석한 결과를 고려하여 답변을 수정하고 최종 답변을 생성하시오.
+                개인정보 탐지 수행 방법에 알맞게 답변을 수정하고 최종 답변을 생성하시오.
             
                 ## 최종 답변
-                입력 >> {output_first[0]}
+                입력 >> {clean_input}
                 태그 >> 
                 결과 >> 인적사항 _건, 신체적정보 _건, 사회적정보 _건, 재산적정보 _건, 정신적 정보 _건, 기타 정보 _건
             """
