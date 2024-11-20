@@ -108,9 +108,10 @@ else:
         결과 >> 인적사항 3건, 신체적정보 1건, 사회적정보 0건, 재산적정보 0건, 정신적 정보 0건, 기타 정보 0건
     
     """
-
-    model_first = genai.GenerativeModel("gemini-1.5-flash", system_instruction=system_instruction_first)
-    model_second = genai.GenerativeModel("gemini-1.5-flash", system_instruction=system_instruction_second)
+    
+    generation_config = genai.types.GenerationConfig(temperature=0.0)
+    model_first = genai.GenerativeModel("gemini-1.5-flash", system_instruction=system_instruction_first, generation_config=generation_config)
+    model_second = genai.GenerativeModel("gemini-1.5-flash", system_instruction=system_instruction_second, generation_config=generation_config)
     chat_session_first = model_first.start_chat(history=[])
     chat_session_second = model_second.start_chat(history=[])
 
